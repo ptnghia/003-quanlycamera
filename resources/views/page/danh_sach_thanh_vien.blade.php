@@ -41,46 +41,48 @@
                 <table class=" table table-bordered table-striped">
                     <thead class=" table-primary">
                         <tr>
-                            <th style="width: 150px;">Ảnh đại diện</th>
+                            <th style="width: 20px;">STT</th>
                             <th>Họ tên</th>
-                            <th>Số định danh</th>
+                            <th>Tên tài khoản</th>
                             <th>Email</th>
-                            <th>Điện thoại</th>
-                            <th>Trạng thái</th>
+                            <th>Ngày tạo</th>
+                            
                             <th class="text-center">Tác vụ</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            @foreach ($data as $items)
                             <td class=" text-center">
-                                <img src="{{asset('assets/images/gallery/05.png')}}" style="object-fit: cover" alt="" width="90px" height="70px" />
+                                {{ $loop->iteration }}
                             </td>
                             <td>
-                                Người dùng 01
+                                {{ $items->name }}
                             </td>
                             <td class="text-center">
-                                01
+                                {{ $items->username }}
                             </td>
                             <td>
-                                nguoidung01@gmail.com
+                                {{ $items->email }}
                             </td>
                             <td>
-                               02325252555
+                                {{ $items->created_at }}
                             </td>
-                            <td>
-                                <span class="badge rounded-pill bg-success px-2 py-1 font-12">
-                                    Hoạt động
-                                </span>
-                            </td>
+                            
                             <td class=" text-center">
-                                <a class="btn btn-sm btn-warning px-2 me-1" href="">
-                                    <i class="bx bx-edit-alt  me-0"></i>
-                                </a>
+                                
+                                  
+                                    <a method="GET" class="btn btn-sm btn-warning px-2 me-1" href="{{route('thanhvien.suathanhvien', $items->id )}}">
+                                        <i class="bx bx-edit-alt  me-0"></i>
+                                    </a>
+                            
+                                
                                 <a class="btn btn-sm btn-danger px-2" href="">
                                     <i class="bx bx-trash-alt me-0"></i>
                                 </a>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

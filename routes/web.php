@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\HomeController;
+use App\Http\Controllers\ThanhvienController;
+use Illuminate\Support\Facades\Redirect;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,11 +17,11 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/login.html', function () {
-    return view('login');
-})->name('login');
+// Route::get('/login.html', function () {
+//     return view('login');
+// })->name('login');
 
-
+Route::resource('thanhvien', ThanhvienController::class);
 
 Route::get('/', function () {
    return view('page.index');
@@ -103,10 +106,15 @@ Route::prefix('he-thong-cctv')->name('hethongcctv.')->group(function () {
 
 Route::prefix('thanh-vien')->name('thanhvien.')->group(function () {
     Route::get('/danh-sach-thanh-vien.html', function () {
-        return view('page.danh_sach_thanh_vien');
+        //return view('page.danh_sach_thanh_vien');
+        return redirect()->route('thanhvien.index');
     })->name('danhsachthanhvien');
 
-    Route::get('/danh-sach-nvr/add.html', function () {
+    Route::get('/danh-sach-thanh-vien/{id}', function () {
+        return redirect()->route('thanhvien.edit');
+    })->name('suathanhvien');
+
+    Route::get('/danh-sach-thanh-vien/add.html', function () {
         return view('page.them_thanh_vien');
     })->name('themmoithanhvien');
 });
@@ -116,4 +124,7 @@ Route::get('profile.html', function () {
 })->name('profile');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+

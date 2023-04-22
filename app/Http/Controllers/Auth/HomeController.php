@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Controller;
 
 class HomeController extends Controller
 {
@@ -25,6 +27,6 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('main', compact('user'));
+        return redirect()->route('index');
     }
 }
