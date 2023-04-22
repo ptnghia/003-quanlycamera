@@ -42,10 +42,19 @@
 										</p>
 									</div>
 									<div class="form-body">
-										<form class="row g-3">
+										<form class="row g-3" method="POST" action="{{ route('login') }}">
+											@csrf
 											<div class="col-12">
-												<label for="inputEmailAddress" class="form-label">Tài khoản</label>
-												<input type="text" class="form-control" id="inputEmailAddress" placeholder="Nhập tên tài khoản">
+												<label for="username" class="col-md-4 col-form-label text-md-end">{{ __('UserName') }}</label>
+												
+													<input id="username" type="username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+					
+													@error('username')
+														<span class="invalid-feedback" role="alert">
+															<strong>{{ $message }}</strong>
+														</span>
+													@enderror
+												
 											</div>
 											<div class="col-12">
 												<label for="inputChoosePassword" class="form-label">Mật khẩu</label>

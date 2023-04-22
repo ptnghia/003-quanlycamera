@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +18,11 @@ Route::get('/login.html', function () {
     return view('login');
 })->name('login');
 
+
+
 Route::get('/', function () {
    return view('page.index');
-})->name('index');
+})->name('index')->middleware('auth');
 
 Route::get('/ban-do-so.html', function () {
     return view('page.ban_do_so');
@@ -111,3 +114,6 @@ Route::prefix('thanh-vien')->name('thanhvien.')->group(function () {
 Route::get('profile.html', function () {
     return view('page.profile');
 })->name('profile');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
