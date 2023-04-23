@@ -89,11 +89,12 @@
 						<div class="menu-title">Hệ thống CCTV</div>
 					</a>
 					<ul>
+						<li> <a href="{{route('hethongcctv.danhsachkhuvuc')}}"><i class="bx bx-right-arrow-alt"></i>Danh sách Khu vực</a>
 						<li> <a href="{{route('hethongcctv.danhsachnvr')}}"><i class="bx bx-right-arrow-alt"></i>Danh sách NVR</a>
 						</li>
 						<li> <a href="{{route('hethongcctv.danhsachcamera')}}"><i class="bx bx-right-arrow-alt"></i>Danh sách Camera</a>
 						</li>
-						<li> <a href="{{route('hethongcctv.xemtructiep')}}"><i class="bx bx-right-arrow-alt"></i>Xemn trực tiếp</a>
+						<li> <a href="{{route('hethongcctv.xemtructiep')}}"><i class="bx bx-right-arrow-alt"></i>Xem trực tiếp</a>
 						</li>
 					</ul>
 				</li>
@@ -191,7 +192,7 @@
 							</div>
 						</a>
 						<ul class="dropdown-menu dropdown-menu-end">
-							<li><a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Thông tin thành viên</span></a>
+							<li><a class="dropdown-item" href="{{route('profile')}}"><i class="bx bx-user"></i><span>Thông tin thành viên</span></a>
 							</li>
 							<li>
 								<div class="dropdown-divider mb-0"></div>

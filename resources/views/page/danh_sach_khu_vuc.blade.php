@@ -10,7 +10,7 @@
 <div class="page-content">
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Danh sách NVR</div>
+        <div class="breadcrumb-title pe-3">Danh sách khu vực</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
@@ -18,7 +18,7 @@
                     </li>
                     <li class="breadcrumb-item" aria-current="page">Quản trị hệ thống</li>
                     <li class="breadcrumb-item" aria-current="page">Hệ thống CCTV</li>
-                    <li class="breadcrumb-item active" aria-current="page">Danh sách NVR</li>
+                    <li class="breadcrumb-item active" aria-current="page">Danh sách khu vực</li>
                 </ol>
             </nav>
         </div>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="dropdown ms-auto d-flex">
-                    <a href="{{route('hethongcctv.themmoinvr')}}" class="btn btn-primary px-2 me-2"><i class="bx bx-plus mr-1"></i>Thêm NVR</a>
+                    <a  href="{{route('hethongcctv.themmoikhuvuc')}}" class="btn btn-primary px-2 me-2"><i class="bx bx-plus mr-1"></i>Thêm khu vực</a>
                     <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i class="bx bx-filter-alt font-22 text-option"></i>
                     </a>
                     <ul class="dropdown-menu">
@@ -45,57 +45,30 @@
             <div class=" table-responsive">
                 <table class=" table table-bordered table-striped">
                     <thead class=" table-primary">
-                       
                         <tr>
                             <th style="width: 50px;">STT</th>
-                            <th> Tên thiết bị</th>
-                            <th> Trạng thái</th>
-                            <th> Địa chỉ IP</th>
+                            <th>Tên khu vực</th>
                             
-                            <th> Số Serial</th>
-                            <th> Khu vực</th>
-                            <th> Phiên bản</th>
-                            <th> Số Camera</th>
                             <th class="text-center">Tác vụ</th>
                         </tr>
-                        
                     </thead>
                     <tbody>
+                        @foreach ($data as $items)
                         <tr>
-                            @foreach ($data as $items)
                             <td class=" text-center">
                                 {{ $loop->iteration }}
                             </td>
                             <td>
                                 {{ $items->name }}
                             </td>
-                            <td class="text-center">
-                                <span class="badge rounded-pill bg-success px-2 py-1 font-12">
-                                    {{ $items->status }}
-                                </span>
-                            </td>
-                            <td>
-                                {{ $items->IP }}
-                            </td>
                            
-                            <td>
-                                {{ $items->serial }}
-                            </td>
-                            <td>
-                                UBND Bình Thuận
-                            </td>
-                            <td>
-                                {{ $items->version }}</th>
-                            </td>
-                            <td>
-                                {{ $items->camera_quantity}}</th>
-                            </td>
+                            
                             <td class=" text-center">
-                                <a method="GET" class="btn btn-sm btn-warning  float-lg-start" href="{{route('nvr.edit', $items->id )}}">
+                                <a method="GET" class="btn btn-sm btn-warning  float-lg-start" href="{{route('area.edit', $items->id )}}">
                                     <i class="bx bx-edit-alt  me-0"></i>
                                 </a>
                         
-                            <form method="POST" class="" action="{{route('nvr.destroy', $items->id )}}">
+                            <form method="POST" class="" action="{{route('area.destroy', $items->id )}}">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-sm btn-danger ms-3 " href="">

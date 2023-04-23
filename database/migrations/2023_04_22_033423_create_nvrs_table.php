@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('serial')->nullable();
             $table->string('version',10)->nullable();
             $table->string('camera_quantity')->nullable();
-            
+            $table->foreignId('area_id')->nullable()->constrained('areas');
            
             $table->string('IP',50);
             $table->string('link',100);

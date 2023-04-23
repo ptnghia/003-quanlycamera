@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\HomeController;
 use App\Http\Controllers\ThanhvienController;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\areaController;
+use App\Http\Controllers\nvrController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,8 @@ use Illuminate\Support\Facades\Redirect;
 // })->name('login');
 
 Route::resource('thanhvien', ThanhvienController::class);
+Route::resource('area', areaController::class);
+Route::resource('nvr', nvrController::class);
 
 Route::get('/', function () {
    return view('page.index');
@@ -78,8 +82,17 @@ Route::prefix('he-thong-camera-ai')->name('hethongcam.')->group(function () {
 });
 
 Route::prefix('he-thong-cctv')->name('hethongcctv.')->group(function () {
+    Route::get('/khu-vuc.html', function () {
+        return redirect()->route('area.index');
+    })->name('danhsachkhuvuc');
+
+
+    Route::get('/danh-sach-khu-vuc/add.html', function () {
+        return view('page.them_khu_vuc');
+    })->name('themmoikhuvuc');
+
     Route::get('/danh-sach-nvr.html', function () {
-        return view('page.danh_sach_nvr');
+        return redirect()->route('nvr.index');
     })->name('danhsachnvr');
 
     Route::get('/danh-sach-nvr/add.html', function () {

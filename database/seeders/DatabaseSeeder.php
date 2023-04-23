@@ -23,5 +23,12 @@ class DatabaseSeeder extends Seeder
         //      'password' => 'admin',
             
         // ]);
+        $this->call([
+            AreasTableSeeder::class,
+           // UsersTableSeeder::class,
+            NvrsTableSeeder::class
+            //VatuSeeder::class
+         ]
+         );
     }
 }

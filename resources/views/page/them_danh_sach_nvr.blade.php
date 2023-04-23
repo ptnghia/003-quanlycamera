@@ -10,7 +10,7 @@
 <div class="page-content">
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Danh sách NVR</div>
+        <div class="breadcrumb-title pe-3">Thêm danh sách NVR</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
@@ -34,45 +34,48 @@
                         <h5 class="mb-0 font-weight-bold" style="font-size: 16px">Thêm thiết bị NVR</h5>
                     </div>
                     <hr>
-                    <form class="row g-3">
+                    <form class="row g-3"method="POST" action="{{route('nvr.store')}}">
+                        @csrf
+                        @method('POST')
                         <div class="col-md-8 col-12">
                             <label for="inputLastName1" class="form-label">Tên thiết bị</label>
-                            <input type="text" class="form-control" id="inputLastName1" placeholder="Nhập tên đối tượng cần giám sát">
+                            <input type="text" class="form-control" name="name" id="inputLastName1" placeholder="Nhập tên đối tượng cần giám sát">
                         </div>
                         <div class="col-md-4 col-12">
                             <label for="inputLastName2" class="form-label">Trạng thái</label>
-                            <select class="form-select">
+                            <select class="form-select" name="status">
                                 <option value="1">Đang hoạt động</option>
                                 <option value="2">Ngừng hoạt động</option>
                             </select>
                         </div>
                         <div class="col-md-4 col-12">
-                            <label class="form-label">IP</label>
-                            <input type="text" class="form-control" placeholder="Nhập địa chỉ IP" value="">
+                            <label class="form-label" >IP</label>
+                            <input type="text" class="form-control" name="IP" placeholder="Nhập địa chỉ IP" value="">
                         </div>
                         <div class="col-md-4 col-12">
-                            <label class="form-label">Port</label>
-                            <input type="number" class="form-control" placeholder="Nhập Port" value="">
+                            <label class="form-label" >Link</label>
+                            <input type="text" class="form-control" name="link" placeholder="Nhập địa chỉ IP" value="">
+                        </div>
+                        
+                        <div class="col-md-4 col-12">
+                            <label class="form-label" name="serial">Serial</label>
+                            <input type="text" class="form-control" name="serial" placeholder="Nhập Serial" value="">
                         </div>
                         <div class="col-md-4 col-12">
-                            <label class="form-label">Serial</label>
-                            <input type="text" class="form-control" placeholder="Nhập Serial" value="">
+                            <label class="form-label" name="area">Khu Vực</label>
+                            <input type="text" class="form-control" name="area_id" placeholder="Nhập khu vực" value="">
                         </div>
                         <div class="col-md-4 col-12">
-                            <label class="form-label">Khu Vực</label>
-                            <input type="text" class="form-control" placeholder="Nhập khu vực" value="">
+                            <label class="form-label" name="version">Phiên bản</label>
+                            <input type="number" class="form-control" name="version" placeholder="Nhập phiên bản" value="">
                         </div>
                         <div class="col-md-4 col-12">
-                            <label class="form-label">Phiên bản</label>
-                            <input type="number" class="form-control" placeholder="Nhập phiên bản" value="">
-                        </div>
-                        <div class="col-md-4 col-12">
-                            <label class="form-label">Số camer</label>
-                            <input type="number" class="form-control" placeholder="Nhập số camera" value="">
+                            <label class="form-label" name="camera_quantity">Số camera</label>
+                            <input type="number" class="form-control" name="camera_quantity" placeholder="Nhập số camera" value="">
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Ghi chú</label>
-                            <textarea class=" form-control" rows="4" placeholder="Nhập ghi chú..."></textarea>
+                            <label class="form-label" name="note">Ghi chú</label>
+                            <textarea class=" form-control" rows="4" name="note" placeholder="Nhập ghi chú..."></textarea>
                         </div>
                         <div class="col-12 d-flex justify-content-between">
                             <a class="btn btn-sm btn-primary" href=""><i class="bx bx-arrow-back me-1 font-13"></i>Quay lại</a>
