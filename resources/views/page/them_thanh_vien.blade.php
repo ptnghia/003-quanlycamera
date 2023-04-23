@@ -33,35 +33,31 @@
                         <h5 class="mb-0 font-weight-bold" style="font-size: 16px">Thêm người dùng</h5>
                     </div>
                     <hr>
-                    <form class="row g-3">
+                    <form class="row g-3" method="POST" action="{{route('thanhvien.store')}}">
+                        @csrf
+                        @method('POST')
                         <div class="col-12">
-                            <label for="inputLastName1" class="form-label">Họ tên</label>
-                            <input type="text" class="form-control" id="inputLastName1" placeholder="Nhập họ tên">
+                            <label for="inputLastName1" class="form-label">Họ và tên</label>
+                            <input type="text" class="form-control" name="name" id="inputLastName1" placeholder="Nhập họ tên">
                         </div>
                         <div class="col-md-4 col-12">
-                            <label class="form-label">Số định danh</label>
-                            <input type="text" class="form-control" placeholder="Nhập số định danh" value="">
+                            <label class="form-label">Tên tài khoản</label>
+                            <input type="text" class="form-control" name="username" placeholder="Nhập tên tài khoản" value="">
                         </div>
                         <div class="col-md-4 col-12">
                             <label class="form-label">Email</label>
-                            <input type="email" class="form-control" placeholder="Nhập email" value="">
+                            <input type="email" class="form-control" name="email"  placeholder="Nhập email" value="">
                         </div>
-                        <div class="col-md-4 col-12">
-                            <label for="inputLastName2" class="form-label">Điện thoại</label>
-                            <input type="email" class="form-control" placeholder="Nhập số điện thoại" value="">
-                        </div>
+                       
                         <div class="col-md-6 col-12">
                             <label class="form-label">Mật khẩu</label>
-                            <input type="password" class="form-control" placeholder="Nhập mật khẩu" value="">
+                            <input type="password" class="form-control" name="password" placeholder="Nhập mật khẩu" value="">
                         </div>
                         <div class="col-md-6 col-12">
                             <label for="inputLastName2" class="form-label">Nhập lại mật khẩu</label>
                             <input type="password" class="form-control" placeholder="Nhập lại mật khẩu" value="">
                         </div>
-                        <div class="col-12">
-                            <label class="form-label">Ghi chú</label>
-                            <textarea class=" form-control" rows="4" placeholder="Nhập ghi chú..."></textarea>
-                        </div>
+                        
                         <div class="col-12 d-flex justify-content-between">
                             <a class="btn btn-sm btn-primary" href=""><i class="bx bx-arrow-back me-1 font-13"></i>Quay lại</a>
                             <button type="submit" class="btn btn-primary px-5"><i class="bx bx-save me-1"></i>Cập nhật</button>

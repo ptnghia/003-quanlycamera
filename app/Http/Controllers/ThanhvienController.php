@@ -49,11 +49,12 @@ class ThanhvienController extends Controller
     {
         $user = new Thanhvien();
         $user->name = $request->name;
+        $user->username = $request->username;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
 
-        return redirect()->route('danhsachthanhvien')->with('success', 'User created successfully.');
+        return redirect()->route('thanhvien.index')->with('success', 'User created successfully.');
     }
 
     /**
@@ -76,7 +77,7 @@ class ThanhvienController extends Controller
     public function edit($id)
     {
         $dataId = $this->useDB->getID($id);
-        return view('page.sua_thanh_vien');
+        return view('page.sua_thanh_vien', compact('dataId'));
         
     }
 
@@ -89,7 +90,17 @@ class ThanhvienController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data_theodoi = [
+            'name'           =>      $request->name,
+            'username'           =>      $request->username,
+            'email'           =>      $request->email,
+            'password'           =>      $request->password
+            
+        ];
+
+        //Lưu dữ liệu
+        $this->useDB->updateData($data_theodoi,$id);
+        return redirect()->route('thanhvien.index')->with('success', 'User updated successfully.');
     }
 
     /**
@@ -100,6 +111,7 @@ class ThanhvienController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->useDB->deleteData($id);
+        return redirect()->route('thanhvien.index')->with('success', 'User deleted successfully.');
     }
 }

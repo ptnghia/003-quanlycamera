@@ -49,13 +49,18 @@
         </div-->
         <div class="col-lg-8">
             <div class="card">
+                <form method="POST" action="{{route('thanhvien.update',Auth::user()->id)}}">
+                    @csrf
+                    @method('PUT')
+                        <input type="hidden" class="form-control" id="inputLastName1" name="id" placeholder="Nhập họ tên" value="{{ Auth::user()->id }}">
+                        <input type="hidden" class="form-control" id="inputLastName1" name="username" placeholder="Nhập họ tên" value="{{ Auth::user()->username }}">
                 <div class="card-body">
                     <div class="row mb-3">
                         <div class="col-sm-3">
                             <h6 class="mb-0">Họ tên</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            <input type="text" class="form-control" value="John Doe" />
+                            <input type="text" name="name" class="form-control" value="{{ Auth::user()->name }}" />
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -63,23 +68,16 @@
                             <h6 class="mb-0">Email</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            <input type="text" class="form-control" value="john@example.com" />
+                            <input type="text" name="email" class="form-control" value="{{ Auth::user()->email }}" />
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Điện thoại</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            <input type="text" class="form-control" value="(239) 816-9029" />
-                        </div>
-                    </div>
+                    
                     <div class="row mb-3">
                         <div class="col-sm-3">
                             <h6 class="mb-0">Mật khẩu</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            <input type="password" class="form-control" value="" placeholder="Nhập mật khẩu" />
+                            <input type="password" name="password" class="form-control" value="{{ Auth::user()->password }}" placeholder="Nhập mật khẩu" />
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -87,16 +85,17 @@
                             <h6 class="mb-0">Nhập lại mật khẩu</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            <input type="password" class="form-control" value="" placeholder="Nhập lại mật khẩu" />
+                            <input type="password" name="password" class="form-control" value="{{ Auth::user()->password }}" placeholder="Nhập lại mật khẩu" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3"></div>
                         <div class="col-sm-9 text-secondary">
-                            <input type="button" class="btn btn-primary px-4" value="Cập nhật" />
+                            <button type="submit" class="btn btn-primary px-5"><i class="bx bx-save me-1"></i>Cập nhật</button>
                         </div>
                     </div>
                 </div>
+            </form>
             </div>
         </div>
     </div>

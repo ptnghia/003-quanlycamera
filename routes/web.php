@@ -110,10 +110,6 @@ Route::prefix('thanh-vien')->name('thanhvien.')->group(function () {
         return redirect()->route('thanhvien.index');
     })->name('danhsachthanhvien');
 
-    Route::get('/danh-sach-thanh-vien/{id}', function () {
-        return redirect()->route('thanhvien.edit');
-    })->name('suathanhvien');
-
     Route::get('/danh-sach-thanh-vien/add.html', function () {
         return view('page.them_thanh_vien');
     })->name('themmoithanhvien');

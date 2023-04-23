@@ -69,17 +69,21 @@
                                 {{ $items->created_at }}
                             </td>
                             
-                            <td class=" text-center">
+                            <td class="p-4">
                                 
                                   
-                                    <a method="GET" class="btn btn-sm btn-warning px-2 me-1" href="{{route('thanhvien.suathanhvien', $items->id )}}">
+                                    <a method="GET" class="btn btn-sm btn-warning  float-lg-start" href="{{route('thanhvien.edit', $items->id )}}">
                                         <i class="bx bx-edit-alt  me-0"></i>
                                     </a>
                             
+                                <form method="POST" class="" action="{{route('thanhvien.destroy', $items->id )}}">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-sm btn-danger ms-3 " href="">
+                                        <i class="bx bx-trash-alt me-0"></i>
+                                    </button>
+                                </form>
                                 
-                                <a class="btn btn-sm btn-danger px-2" href="">
-                                    <i class="bx bx-trash-alt me-0"></i>
-                                </a>
                             </td>
                         </tr>
                         @endforeach
