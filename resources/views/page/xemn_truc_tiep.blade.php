@@ -33,7 +33,7 @@
                 <div class="col-lg-4 col-sm-6">
                     
                     <video width="100%" height="300" controls class=" radius-10">
-                        <source src="movie.mp4" type="video/mp4">
+                        <source src="rtsp://admin:Admin123456@hoaphu.zapto.org:555/Streaming/channels/101" type="video/mp4">
                     </video>
                 </div>
                 <div class="col-lg-4 col-sm-6">

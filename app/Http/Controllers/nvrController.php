@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Nvrs;
-
+use App\Models\Cameras;
+use Illuminate\Support\Facades\DB;
+use App\Models\Areas;
 class nvrController extends Controller
 {
     /**
@@ -15,13 +17,28 @@ class nvrController extends Controller
      public function __construct()
      {
          $this->middleware('auth');
-         $this->useDB = new NVrs();
+         $this->useDB = new Nvrs();
      }
     public function index()
     {
-        $data = $this->useDB->getAll();       
+        $nvrs = Nvrs::all();
+        
+        foreach ($nvrs as $nvr) {
+            $cameraQuantity = Cameras::where('nvr_id', $nvr->id)->count();
+            $nvr->camera_quantity = $cameraQuantity;
+            $nvr->save();
+        }  
+       
+        
+        $data = $this->useDB->getAll(); 
+       
+            
         return view('page.danh_sach_nvr', compact('data'));
     }
+
+   
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -30,7 +47,9 @@ class nvrController extends Controller
      */
     public function create()
     {
-        return view('page.them_danh_sach_nvr');
+        $areaModel = new Areas();
+        $dataArea = $areaModel->getAll();
+        return view('page.them_danh_sach_nvr',compact('dataArea'));
     }
 
     /**
@@ -76,8 +95,14 @@ class nvrController extends Controller
      */
     public function edit($id)
     {
-        $dataId = $this->useDB->getID($id);
-        return view('page.sua_nvr', compact('dataId'));
+        //$dataArea = DB::table('areas')->get();
+        $areaModel = new Areas();
+
+        // Gọi phương thức getUserName() của model User
+        $dataArea = $areaModel->getAll();
+
+        $dataId = $this->useDB->getId($id);
+        return view('page.sua_nvr', compact('dataId','dataArea'));
         
     }
 

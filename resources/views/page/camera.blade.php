@@ -57,40 +57,49 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($data as $items)
                         <tr>
                             <td class=" text-center">
-                                1
+                                {{ $loop->iteration }}
                             </td>
                             <td>
-                                NVR-1
+                                {{ $items->name }}
                             </td>
                             <td>
-                                201-D0
+                                {{ $items->nvrname }}
                             </td>
                             <td>
-                                192.168.1.200
+                                {{ $items->IP }}
                             </td>
                             
                             <td>
-                                UBND Bình Thuận
+                                {{ $items->areaname }}
                             </td>
                             <td class="text-center">
-                                <span class="badge rounded-pill bg-success px-2 py-1 font-12">
-                                    Active
-                                </span>
+                                @if($items->status == 1)
+                                    <span class="badge rounded-pill bg-success px-2 py-1 font-12">  Đang hoạt động </span>
+                                    @else
+                                    <span class="badge rounded-pill bg-danger px-2 py-1 font-12">  Ngừng hoạt động </span>
+                                    @endif
                             </td>
                             <td class=" text-center">
-                                <a class="btn btn-sm btn-info px-2 me-1" href="">
+                                <a class="btn btn-sm btn-info px-2 me-1" href="{{ $items->link }}">
                                     <i class="bx bx-cctv me-0"></i>
                                 </a>
-                                <a class="btn btn-sm btn-warning px-2 me-1" href="">
+                                <a method="GET" class="btn btn-sm btn-warning  float-lg-start" href="{{route('camera.edit', $items->id )}}">
                                     <i class="bx bx-edit-alt  me-0"></i>
                                 </a>
-                                <a class="btn btn-sm btn-danger px-2" href="">
+                        
+                            <form method="POST" class="" action="{{route('camera.destroy', $items->id )}}">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-sm btn-danger ms-3 " href="">
                                     <i class="bx bx-trash-alt me-0"></i>
-                                </a>
+                                </button>
+                            </form>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

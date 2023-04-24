@@ -10,14 +10,14 @@
 <div class="page-content">
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Sửa NVR</div>
+        <div class="breadcrumb-title pe-3">Sửa Camera</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
                     <li class="breadcrumb-item" aria-current="page">Quản trị chung</li>
-                    <li class="breadcrumb-item active" aria-current="page">Sửa NVR</li>
+                    <li class="breadcrumb-item active" aria-current="page">Sửa Camera</li>
                 </ol>
             </nav>
         </div>
@@ -30,10 +30,10 @@
                     <div class="card-title d-flex align-items-center">
                         <div><i class="bx bx-user me-1 font-22 text-primary"></i>
                         </div>
-                        <h5 class="mb-0 font-weight-bold" style="font-size: 16px">Sửa thành viên</h5>
+                        <h5 class="mb-0 font-weight-bold" style="font-size: 16px">Sửa Camera</h5>
                     </div>
                     <hr>
-                    <form class="row g-3" method="POST" action="{{route('nvr.update',$dataId->id)}}">
+                    <form class="row g-3" method="POST" action="{{route('camera.update',$dataId->id)}}">
                         @csrf
                         @method('PUT')
                             <input type="hidden" class="form-control" id="inputLastName1" name="id" placeholder="Nhập họ tên" value="{{$dataId->id}}">
@@ -43,50 +43,50 @@
                                 <input type="text" class="form-control" name="name" id="inputLastName1" placeholder="Nhập tên đối tượng cần giám sát" value="{{$dataId->name}}">
                             </div>
                             <div class="col-md-4 col-12">
-                                <label for="inputLastName2" class="form-label">Trạng thái</label>
-                                <select class="form-select" name="status" value="{{$dataId->status}}">
-                                @if($dataId->status == 1)
-                                <option value="1" selected class="selected">Đang hoạt động</option>
-                                <option value="0">Ngừng hoạt động</option>
-                                @else{
-                                    <option value="1" >Đang hoạt động</option>
-                                    <option value="0" selected class="selected">Ngừng hoạt động</option>
-                                }
-                                    @endif
+                                <label for="inputLastName2" class="form-label">NVR</label>
+                                <select class="form-select" name="nvr_id" value="{{$dataId->nvr_id}}">
+                                    @foreach($dataNvr as $data)
+                                    <option value="{{$data->id}}" {{$data->id == $dataId->area_id ? 'selected' : ''}} >{{$data->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-12">
+                                <label class="form-label" name="area">Khu Vực</label>
+                                <select class="form-select" name="area_id"  value="{{$dataId->area_id}}">
+                                    
+                                    @foreach($dataArea as $data)
+                                    <option value="{{$data->id}}" {{$data->id == $dataId->area_id ? 'selected' : ''}} >{{$data->name}}</option>
+                                    @endforeach
                                    
                                 </select>
                             </div>
-                            <div class="col-md-4 col-12">
+                            
+                            <div class="col-md-3 col-12">
                             <label class="form-label" >IP</label>
                             <input type="text" class="form-control" name="IP" placeholder="Nhập địa chỉ IP" value="{{$dataId->IP}}">
                         </div>
-                        <div class="col-md-4 col-12">
+                        <div class="col-md-3 col-12">
                             <label class="form-label" >Link</label>
                             <input type="text" class="form-control" name="link" placeholder="Nhập link" value="{{$dataId->link}}">
                         </div>
                         
-                        <div class="col-md-4 col-12">
-                            <label class="form-label" name="serial">Serial</label>
-                            <input type="text" class="form-control" name="serial" placeholder="Nhập Serial" value="{{$dataId->serial}}">
-                        </div>
-                        <div class="col-md-4 col-12">
-                            <label class="form-label" name="area">Khu Vực</label>
-                            <select class="form-select" name="area_id"  value="{{$dataId->area_id}}">
-                                
-                                @foreach($dataArea as $data)
-                                <option value="{{$data->id}}" {{$data->id == $dataId->area_id ? 'selected' : ''}} >{{$data->name}}</option>
-                                @endforeach
+                        
+                        <div class="col-md-3 col-12">
+                            <label for="inputLastName2" class="form-label">Trạng thái</label>
+                            <select class="form-select" name="status" value="{{$dataId->status}}">
+                            @if($dataId->status == 1)
+                            <option value="1" selected class="selected">Đang hoạt động</option>
+                            <option value="0">Ngừng hoạt động</option>
+                            @else{
+                                <option value="1" >Đang hoạt động</option>
+                                <option value="0" selected class="selected">Ngừng hoạt động</option>
+                            }
+                                @endif
                                
                             </select>
                         </div>
-                        <div class="col-md-4 col-12">
-                            <label class="form-label" name="version">Phiên bản</label>
-                            <input type="number" class="form-control" name="version" placeholder="Nhập phiên bản" value="{{$dataId->version}}">
-                        </div>
-                        <div class="col-md-4 col-12">
-                            <label class="form-label" name="camera_quantity">Số camera</label>
-                            <input disabled type="number" class="form-control " name="camera_quantity" placeholder="Nhập số camera" value="{{$dataId->camera_quantity}}">
-                        </div>
+                        
+                       
                         <div class="col-12">
                             <label class="form-label" name="note">Ghi chú</label>
                             <textarea class=" form-control" rows="4" name="note" placeholder="Nhập ghi chú...">{{$dataId->note}}</textarea>

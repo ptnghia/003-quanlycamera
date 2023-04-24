@@ -69,10 +69,14 @@
                             <td>
                                 {{ $items->name }}
                             </td>
-                            <td class="text-center">
-                                <span class="badge rounded-pill bg-success px-2 py-1 font-12">
-                                    {{ $items->status }}
-                                </span>
+                            <td class="text-center" id="status">
+                                
+                                    @if($items->status == 1)
+                                    <span class="badge rounded-pill bg-success px-2 py-1 font-12">  Đang hoạt động </span>
+                                    @else
+                                    <span class="badge rounded-pill bg-danger px-2 py-1 font-12">  Ngừng hoạt động </span>
+                                    @endif
+                                
                             </td>
                             <td>
                                 {{ $items->IP }}
@@ -82,7 +86,7 @@
                                 {{ $items->serial }}
                             </td>
                             <td>
-                                UBND Bình Thuận
+                               {{$items->area_name}}
                             </td>
                             <td>
                                 {{ $items->version }}</th>

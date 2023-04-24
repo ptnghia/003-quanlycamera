@@ -7,6 +7,8 @@ use App\Http\Controllers\ThanhvienController;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\areaController;
 use App\Http\Controllers\nvrController;
+use App\Http\Controllers\cameraController;
+use App\Models\IdentifiedLists;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,8 @@ use App\Http\Controllers\nvrController;
 Route::resource('thanhvien', ThanhvienController::class);
 Route::resource('area', areaController::class);
 Route::resource('nvr', nvrController::class);
+Route::resource('camera', cameraController::class);
+Route::resource('identifiedlist', IdentifiedLists::class);
 
 Route::get('/', function () {
    return view('page.index');
@@ -96,16 +100,17 @@ Route::prefix('he-thong-cctv')->name('hethongcctv.')->group(function () {
     })->name('danhsachnvr');
 
     Route::get('/danh-sach-nvr/add.html', function () {
-        return view('page.them_danh_sach_nvr');
+        return redirect()->route('nvr.create');
     })->name('themmoinvr');
 
     Route::get('/danh-sach-camera.html', function () {
-        return view('page.camera');
+        return redirect()->route('camera.index');
     })->name('danhsachcamera');
-    
+
     Route::get('/danh-sach-camera/add.html', function () {
-        return view('page.them_danh_sach_camera');
+        return redirect()->route('camera.create');
     })->name('themmoicamera');
+
 
     Route::get('/xem-truc-tiep.html', function () {
         return view('page.xemn_truc_tiep');
