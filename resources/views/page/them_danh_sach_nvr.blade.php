@@ -63,7 +63,7 @@
                         </div>
                         <div class="col-md-4 col-12">
                             <label class="form-label" name="area">Khu Vực</label>
-                            <input type="text" class="form-control" name="area_id" placeholder="Nhập khu vực" value="">
+                            <input type="text" class="form-control" name="area_id" placeholder="Nhập khu vực" value="1">
                         </div>
                         <div class="col-md-4 col-12">
                             <label class="form-label" name="version">Phiên bản</label>
@@ -73,6 +73,7 @@
                             <label class="form-label" name="camera_quantity">Số camera</label>
                             <input type="number" class="form-control" name="camera_quantity" placeholder="Nhập số camera" value="">
                         </div>
+                        <input type="hidden" class="form-control" placeholder="Nhập khu vực" name="user_id" value="{{ Auth::user()->id }}">
                         <div class="col-12">
                             <label class="form-label" name="note">Ghi chú</label>
                             <textarea class=" form-control" rows="4" name="note" placeholder="Nhập ghi chú..."></textarea>

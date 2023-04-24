@@ -33,33 +33,51 @@
                         <h5 class="mb-0 font-weight-bold" style="font-size: 16px">Sửa thành viên</h5>
                     </div>
                     <hr>
-                    <form class="row g-3" method="POST" action="{{route('thanhvien.update',$dataId->id)}}">
+                    <form class="row g-3" method="POST" action="{{route('nvr.update',$dataId->id)}}">
                         @csrf
                         @method('PUT')
                             <input type="hidden" class="form-control" id="inputLastName1" name="id" placeholder="Nhập họ tên" value="{{$dataId->id}}">
                         
+                            <div class="col-md-8 col-12">
+                                <label for="inputLastName1" class="form-label">Tên thiết bị</label>
+                                <input type="text" class="form-control" name="name" id="inputLastName1" placeholder="Nhập tên đối tượng cần giám sát" value="{{$dataId->name}}">
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <label for="inputLastName2" class="form-label">Trạng thái</label>
+                                <select class="form-select" name="status" value="{{$dataId->status}}">
+                                    <option value="1">Đang hoạt động</option>
+                                    <option value="2">Ngừng hoạt động</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 col-12">
+                            <label class="form-label" >IP</label>
+                            <input type="text" class="form-control" name="IP" placeholder="Nhập địa chỉ IP" value="{{$dataId->IP}}">
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <label class="form-label" >Link</label>
+                            <input type="text" class="form-control" name="link" placeholder="Nhập link" value="{{$dataId->link}}">
+                        </div>
+                        
+                        <div class="col-md-4 col-12">
+                            <label class="form-label" name="serial">Serial</label>
+                            <input type="text" class="form-control" name="serial" placeholder="Nhập Serial" value="{{$dataId->serial}}">
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <label class="form-label" name="area">Khu Vực</label>
+                            <input type="text" class="form-control" name="area_id" placeholder="Nhập khu vực" value="1">
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <label class="form-label" name="version">Phiên bản</label>
+                            <input type="number" class="form-control" name="version" placeholder="Nhập phiên bản" value="{{$dataId->version}}">
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <label class="form-label" name="camera_quantity">Số camera</label>
+                            <input type="number" class="form-control" name="camera_quantity" placeholder="Nhập số camera" value="{{$dataId->camera_quantity}}">
+                        </div>
                         <div class="col-12">
-                            <label for="inputLastName1" class="form-label">Họ và tên</label>
-                            <input type="text" class="form-control" id="inputLastName1" name="name" placeholder="Nhập họ tên" value="{{$dataId->name}}">
+                            <label class="form-label" name="note">Ghi chú</label>
+                            <textarea class=" form-control" rows="4" name="note" placeholder="Nhập ghi chú...">{{$dataId->note}}</textarea>
                         </div>
-                        <div class="col-md-4 col-12">
-                            <label class="form-label">Tên tài khoản</label>
-                            <input type="text" class="form-control" name="username" placeholder="Nhập tên tài khoản" value="{{$dataId->name}}">
-                        </div>
-                        <div class="col-md-4 col-12">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" placeholder="Nhập email" value="{{$dataId->name}}">
-                        </div>
-                        
-                        <div class="col-md-6 col-12">
-                            <label class="form-label">Mật khẩu</label>
-                            <input type="password" class="form-control" name="password"  placeholder="Nhập mật khẩu" value="{{$dataId->name}}">
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <label for="inputLastName2" class="form-label">Nhập lại mật khẩu</label>
-                            <input type="password" class="form-control" placeholder="Nhập lại mật khẩu" value="{{$dataId->name  }}">
-                        </div>
-                        
                         <div class="col-12 d-flex justify-content-between">
                             <a class="btn btn-sm btn-primary" href=""><i class="bx bx-arrow-back me-1 font-13"></i>Quay lại</a>
                             <button type="submit" class="btn btn-primary px-5"><i class="bx bx-save me-1"></i>Cập nhật</button>

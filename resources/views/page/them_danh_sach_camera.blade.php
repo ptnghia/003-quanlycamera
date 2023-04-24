@@ -54,6 +54,7 @@
                             <label class="form-label">Khu Vực</label>
                             <input type="text" class="form-control" placeholder="Nhập khu vực" value="">
                         </div>
+                        
                         <div class="col-md-4 col-12">
                             <label for="inputLastName2" class="form-label">Trạng thái</label>
                             <select class="form-select">

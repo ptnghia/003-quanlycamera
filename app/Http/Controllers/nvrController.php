@@ -46,11 +46,12 @@ class nvrController extends Controller
         $user->status = $request->status;
         $user->IP = $request->IP;
         $user->serial = $request->serial;
-        $user->area_id = $request->aria_id;
+        $user->area_id = $request->area_id;
         $user->version = $request->version;
         $user->camera_quantity = $request->camera_quantity;
         $user->note = $request->note;
         $user->link = $request->link;
+        $user->user_id = $request->user_id ;
         $user->save();
 
         return redirect()->route('nvr.index')->with('success', 'User created successfully.');
@@ -91,12 +92,18 @@ class nvrController extends Controller
     {
         $data_theodoi = [
             'name'           =>      $request->name,
-            'username'           =>      $request->username,
-            'email'           =>      $request->email,
-            'password'           =>      $request->password
-            
+            'status'           =>      $request->status,
+            'IP'           =>      $request->IP,
+            'serial'           =>      $request->serial,
+            'area_id'           =>      $request->area_id,
+            'version'           =>      $request->serial,
+            'camera_quantity'           =>      $request->camera_quantity,
+            'serial'           =>      $request->serial,
+            'note'           =>      $request->note,
+            'link'           =>      $request->link,
+            'user_id'       =>     $request->user_id
         ];
-
+       
         //Lưu dữ liệu
         $this->useDB->updateData($data_theodoi,$id);
         return redirect()->route('nvr.index')->with('success', 'User updated successfully.');
