@@ -4,18 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 class IdentifiedLists extends Model
 {
     use HasFactory;
-    protected  $table = 'cameras';
+    protected  $table = 'identified_lists';
 
     public function getAll(){
 
        //$datas =  DB::table($this->table)->get();
        $result = IdentifiedLists::join('identifieds', 'identified_lists.identified_id', '=', 'identifieds.id')
                  ->join('categories', 'identified_lists.category_id', '=', 'categories.id')
-                 ->select('identified_lists.*', 'identifieds.name as identifiedname', 'categories.name as categoriename')
+                 ->select('identified_lists.*', 'identifieds.name as identifiedname', 'categories.name as categoryname')
                  ->get();
        return $result;
 

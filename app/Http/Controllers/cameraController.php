@@ -21,6 +21,8 @@ class cameraController extends Controller
         return view('page.camera', compact('data'));
     }
 
+  
+
     /**
      * Show the form for creating a new resource.
      *

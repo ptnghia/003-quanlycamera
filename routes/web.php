@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\areaController;
 use App\Http\Controllers\nvrController;
 use App\Http\Controllers\cameraController;
-use App\Models\IdentifiedLists;
+use App\Http\Controllers\identifiedlistsController;
+use App\Http\Controllers\apiController;
+use App\Http\Controllers\mapController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,15 +31,19 @@ Route::resource('thanhvien', ThanhvienController::class);
 Route::resource('area', areaController::class);
 Route::resource('nvr', nvrController::class);
 Route::resource('camera', cameraController::class);
-Route::resource('identifiedlist', IdentifiedLists::class);
+Route::resource('identifiedlists', identifiedlistsController::class);
+Route::resource('map', mapController::class);
 
 Route::get('/', function () {
    return view('page.index');
 })->name('index')->middleware('auth');
 
 Route::get('/ban-do-so.html', function () {
-    return view('page.ban_do_so');
+    return redirect()->route('map.index');
 })->name('bandoso');
+Route::get('/ban-do-so/add.html', function () {
+    return redirect()->route('map.create');
+})->name('thembandoso');
 
 Route::prefix('he-thong-camera-ai')->name('hethongcam.')->group(function () {
     Route::get('/tat-ca-su-kien.html', function () {
@@ -56,11 +62,11 @@ Route::prefix('he-thong-camera-ai')->name('hethongcam.')->group(function () {
         return view('page.nhan_dien_dam_dong');
     })->name('nhandiendamdong');
 
-    Route::get('/danh-sach-nhan-dan.html', function () {
-        return view('page.danh_sach_nhan_dang');
+    Route::get('/danh-sach-nhan-dang.html', function () {
+        return redirect()->route('identifiedlists.index');
     })->name('danhsachnhandang');
     
-    Route::get('/danh-sach-nhan-dan/add.html', function () {
+    Route::get('/danh-sach-nhan-dang/add.html', function () {
         return view('page.them_doi_tuong_nhan_dang');
     })->name('themdoituongnhandang');
 
@@ -142,3 +148,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 
+Route::prefix('api/he-thong-cctv')->name('api.')->group(function () {
+
+    Route::get('/danh-sach-camera.html', [apiController::class,'camera']);
+});

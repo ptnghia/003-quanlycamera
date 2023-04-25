@@ -18,7 +18,7 @@
                     </li>
                     <li class="breadcrumb-item" aria-current="page">Quản trị hệ thống</li>
                     <li class="breadcrumb-item" aria-current="page">Hệ thống Camera AI</li>
-                    <li class="breadcrumb-item active" aria-current="page">Danh sách nhận dạng</li>
+                    <li class="breadcrumb-item active" aria-current="page">Sửa đối tượng nhận dạng</li>
                 </ol>
             </nav>
         </div>
@@ -31,19 +31,19 @@
                     <div class="card-title d-flex align-items-center">
                         <div><i class="bx bx-cctv me-1 font-22 text-primary"></i>
                         </div>
-                        <h5 class="mb-0 font-weight-bold" style="font-size: 16px">Thêm đối tượng giám sát</h5>
+                        <h5 class="mb-0 font-weight-bold" style="font-size: 16px">Sửa đối tượng giám sát</h5>
                     </div>
                     <hr>
-                    <form class="row g-3" method="POST" action="{{route('identifiedlists.store')}}">
+                    <form class="row g-3" method="POST" action="{{route('identifiedlists.update',$dataId->id)}}">
                         @csrf
-                        @method('POST')
+                        @method('PUT')
                         <div class="col-md-8 col-12">
                             <label for="inputLastName1" class="form-label">Tên đối tượng</label>
-                            <input type="text" class="form-control" id="inputLastName1" name="name" placeholder="Nhập tên đối tượng cần giám sát">
+                            <input type="text" class="form-control" id="inputLastName1" name="name" placeholder="Nhập tên đối tượng cần giám sát" value="{{$dataId->name}}">
                         </div>
                         <div class="col-md-4 col-12">
                             <label for="inputLastName2" class="form-label">Loại nhận diện</label>
-                            <select class="form-select" name="identified">
+                            <select class="form-select" name="identified" value="{{$dataId->id}}">
                                 <option value="2">Biển số xe</option>
                                 <option value="1">Khuôn mặt</option>
                                 <option value="3">Nhận diện đám đông</option>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="col-12">
                             <label for="inputtime" class="form-label">Ghi chú</label>
-                            <textarea class=" form-control" rows="3"name="note"  placeholder="Nhập ghi chú..."></textarea>
+                            <textarea class=" form-control" rows="3"name="note"  placeholder="Nhập ghi chú...">{{$dataId->note}}</textarea>
                         </div>
                         <div class="col-12">
                             <label class="col-form-label">Bấm chọn hoặc kéo thả hình ảnh vào ô bên dưới</label>

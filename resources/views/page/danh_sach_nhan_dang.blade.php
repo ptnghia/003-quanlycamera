@@ -86,30 +86,45 @@
                             <th>Loại nhận diện</th>
                             <th>Thời gian</th>
                             <th>Phân loại</th>
+                            <th>Tác vụ</th>
                             <th style="width: 125px;">Chi tiết</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($data as $items)
                         <tr>
                             <td class=" text-center">
                                 <img src="{{asset('assets/images/gallery/05.png')}}" style="object-fit: cover" alt="" width="90px" height="70px" />
                             </td>
                             <td>
-                                Nguyễn Trung Tín
+                                {{ $items->name }}
                             </td>
                             <td>
-                                Khuôn mặt
+                                {{ $items->identifiedname }}
                             </td>
                             <td>
-                                12-09-2022 22:01:03
+                                {{ $items->time_get }}
                             </td>
                             <td class=" text-center">
                                 <span class="badge rounded-pill bg-danger px-2 py-1 font-12">
                                     <span >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-triangle text-white"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                                     </span>
-                                    Danh sách đen
+                                    {{ $items->categoryname }}
                                 </span>
+                            </td>
+                            <td class=" text-center">
+                                <a method="GET" class="btn btn-sm btn-warning  float-lg-start" href="{{route('identifiedlists.edit', $items->id )}}">
+                                    <i class="bx bx-edit-alt  me-0"></i>
+                                </a>
+                        
+                            <form method="POST" class="" action="{{route('identifiedlists.destroy', $items->id )}}">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-sm btn-danger ms-3 " href="">
+                                    <i class="bx bx-trash-alt me-0"></i>
+                                </button>
+                            </form>
                             </td>
                             <td>
                                 <a class="btn btn-sm btn-info" href="{{route('hethongcam.lichsunhandienkhuonmat')}}">
@@ -117,60 +132,9 @@
                                     Lịch sử
                                 </a>
                             </td>
+
                         </tr>
-                        <tr>
-                            <td class=" text-center">
-                                <img src="{{asset('assets/images/gallery/05.png')}}" style="object-fit: cover" alt="" width="90px" height="70px" />
-                            </td>
-                            <td>
-                               Đối tượng 01
-                            </td>
-                            <td>
-                                Khuôn mặt
-                            </td>
-                            <td>
-                                12-09-2022 22:01:03
-                            </td>
-                            <td class=" text-center">
-                                <span class="badge rounded-pill bg-danger px-2 py-1 font-12">
-                                    <span >
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-triangle text-white"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                                    </span>
-                                    Danh sách đen
-                                </span>
-                            </td>
-                            <td>
-                                <a class="btn btn-sm btn-info" href="{{route('hethongcam.lichsunhandienkhuonmat')}}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-white"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                    Lịch sử
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=" text-center">
-                                <img src="{{asset('assets/images/gallery/05.png')}}" style="object-fit: cover" alt="" width="90px" height="70px" />
-                            </td>
-                            <td>
-                               86A-0953.77
-                            </td>
-                            <td>
-                                Biển số xe
-                            </td>
-                            <td>
-                                12-09-2022 22:01:03
-                            </td>
-                            <td class=" text-center">
-                                <span class="badge rounded-pill bg-success px-2 py-1 font-12">
-                                    Thông thường
-                                </span>
-                            </td>
-                            <td>
-                                <a class="btn btn-sm btn-info" href="{{route('hethongcam.lichsunhandienbienso')}}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-white"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                    Lịch sử
-                                </a>
-                            </td>
-                        </tr>
+                       @endforeach
                     </tbody>
                 </table>
             </div>

@@ -2,28 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categories;
+use App\Models\Cameras;
 use Illuminate\Http\Request;
-use App\Models\IdentifiedLists;
-use App\Models\Identifieds;
-
-class identifiedlistsController extends Controller
+use App\Models\Areas;
+use App\Models\Nvrs;
+class apiController extends Controller
 {
     private $useDB;
     public function __construct()
     {
         $this->middleware('auth');
-        $this->useDB = new IdentifiedLists();
+        $this->useDB = new Cameras();
     }
-    public function index()
+    public function camera()
     {
-
-
         $data = $this->useDB->getAll();
 
-        return view('page.danh_sach_nhan_dang', compact('data'));
+        return response(
+            [
+                'data' => $data
+            ]
+            );
     }
 
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -31,12 +33,12 @@ class identifiedlistsController extends Controller
      */
     public function create()
     {
-        $identifiedModel = new Identifieds();
-        $categoryModel = new Categories();
-
-        $dataIdentified = $identifiedModel->getAll();
-        $dataCategory = $categoryModel->getAll();
-        return view('page.them_doi_tuong_nhan_dang', compact('dataIdentified', 'dataCategory'));
+        $areaModel = new Areas();
+        $nvrModel = new Nvrs();
+        
+        $dataNvr = $nvrModel->getAll();
+        $dataArea = $areaModel->getAll();
+        return view('page.them_danh_sach_camera', compact('dataArea', 'dataNvr'));
     }
 
     /**
@@ -47,17 +49,17 @@ class identifiedlistsController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new IdentifiedLists();
+        $user = new Cameras();
         $user->name = $request->name;
-        $user->identified_id = $request->identified;
-        $user->time_get = $request->inputtime;
-        $user->category_id = $request->category;
+        $user->nvr_id = $request->nvr_id;
+        $user->area_id = $request->area_id;
+        $user->IP = $request->IP;
+        $user->link = $request->link;
+        $user->status = $request->status;
         $user->note = $request->note;
-        $user->image = $request->image;
-
         $user->save();
 
-        return redirect()->route('identifiedlists.index')->with('success', 'identifiedlists created successfully.');
+        return redirect()->route('camera.index')->with('success', 'Camera created successfully.');
     }
 
     /**
@@ -79,13 +81,13 @@ class identifiedlistsController extends Controller
      */
     public function edit($id)
     {
-        // $areaModel = new Areas();
-        // $nvrModel = new Nvrs();
-
-        //$dataArea = $areaModel->getAll();
-        // $dataNvr = $nvrModel->getAll();
+        $areaModel = new Areas();
+        $nvrModel = new Nvrs();
+        // Gọi phương thức getUserName() của model User
+        $dataArea = $areaModel->getAll();
+        $dataNvr = $nvrModel->getAll();
         $dataId = $this->useDB->getId($id);
-        return view('page.sua_doi_tuong_nhan_dang', compact('dataId'));
+        return view('page.sua_camera', compact('dataId', 'dataArea','dataNvr'));
     }
 
     /**
@@ -99,17 +101,18 @@ class identifiedlistsController extends Controller
     {
         $data_theodoi = [
             'name'           =>      $request->name,
-            'identified_id'           =>      $request->identified,
-            'time_get'           =>      $request->inputtime,
-            'category_id'           =>      $request->category,
-            'note'           =>      $request->note,
-            'image'           =>      $request->image,
+            'status'           =>      $request->status,
+            'IP'           =>      $request->IP,
+            'link'           =>      $request->link,
             
+            'area_id'           =>      $request->area_id,
+            'nvr_id'           =>      $request->nvr_id,
+            'note'           =>      $request->note
         ];
 
         //Lưu dữ liệu
         $this->useDB->updateData($data_theodoi, $id);
-        return redirect()->route('identifiedlists.index')->with('success', 'identifiedlists updated successfully.');
+        return redirect()->route('camera.index')->with('success', 'Camera updated successfully.');
     }
 
     /**
@@ -121,6 +124,6 @@ class identifiedlistsController extends Controller
     public function destroy($id)
     {
         $this->useDB->deleteData($id);
-        return redirect()->route('identifiedlists.index')->with('success', 'Camera deleted successfully.');
+        return redirect()->route('camera.index')->with('success', 'Camera deleted successfully.');
     }
 }

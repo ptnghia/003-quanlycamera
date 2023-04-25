@@ -18,7 +18,7 @@
                     </li>
                     <li class="breadcrumb-item" aria-current="page">Quản trị hệ thống</li>
                     <li class="breadcrumb-item" aria-current="page">Hệ thống Camera AI</li>
-                    <li class="breadcrumb-item active" aria-current="page">Danh sách nhận dạng</li>
+                    <li class="breadcrumb-item active" aria-current="page">Thêm bản đồ số</li>
                 </ol>
             </nav>
         </div>
@@ -31,43 +31,37 @@
                     <div class="card-title d-flex align-items-center">
                         <div><i class="bx bx-cctv me-1 font-22 text-primary"></i>
                         </div>
-                        <h5 class="mb-0 font-weight-bold" style="font-size: 16px">Thêm đối tượng giám sát</h5>
+                        <h5 class="mb-0 font-weight-bold" style="font-size: 16px">Thêm địa điểm</h5>
                     </div>
                     <hr>
-                    <form class="row g-3" method="POST" action="{{route('identifiedlists.store')}}">
+                    <form class="row g-3" method="POST" action="{{route('map.store')}}">
                         @csrf
                         @method('POST')
                         <div class="col-md-8 col-12">
-                            <label for="inputLastName1" class="form-label">Tên đối tượng</label>
-                            <input type="text" class="form-control" id="inputLastName1" name="name" placeholder="Nhập tên đối tượng cần giám sát">
+                            <label for="inputLastName1" class="form-label">Tên địa điểm</label>
+                            <input type="text" class="form-control" id="inputLastName1" name="name" placeholder="Nhập tên địa điểm">
                         </div>
                         <div class="col-md-4 col-12">
-                            <label for="inputLastName2" class="form-label">Loại nhận diện</label>
-                            <select class="form-select" name="identified">
-                                <option value="2">Biển số xe</option>
-                                <option value="1">Khuôn mặt</option>
-                                <option value="3">Nhận diện đám đông</option>
+                            <label for="inputLastName2" class="form-label">Khu vực</label>
+                            <select class="form-select" name="area_id">
+                                @foreach ($dataArea as $data)
+                                    <option  value="{{ $data->id }}">{{ $data->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-md-6 col-12">
                             <label for="inputtime" class="form-label">Thời gian</label>
-                            <input type="datetime-local" class="form-control" id="inputtime" name="inputtime" value="{{date('Y-m-d H:i:s', time())}}">
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <label class="form-label">Phân loại</label>
-                            <select class="form-select" name="category">
-                                <option value="2">Cảnh báo</option>
-                                <option value="1">Thông thường</option>
+                            <select class="form-select" name="camera_id">
+                                @foreach ($dataCamera as $data)
+                                    <option  value="{{ $data->id }}">{{ $data->name }}</option>
+                                @endforeach
                             </select>
                         </div>
-                        <div class="col-12">
-                            <label for="inputtime" class="form-label">Ghi chú</label>
-                            <textarea class=" form-control" rows="3"name="note"  placeholder="Nhập ghi chú..."></textarea>
+                        <div class="col-md-6 col-12">
+                            <label class="form-label">Toạ độ</label>
+                            <input type="text" class="form-control" id="inputLastName1" name="location" placeholder="Nhập tạo độ trên GG map">
                         </div>
-                        <div class="col-12">
-                            <label class="col-form-label">Bấm chọn hoặc kéo thả hình ảnh vào ô bên dưới</label>
-                            <input id="OurFile" type="file" name="image" accept="image/png, image/jpeg"  multiple>
-                        </div>
+                        
                         <div class="col-12 d-flex justify-content-between">
                             <a class="btn btn-sm btn-primary" href=""><i class="bx bx-arrow-back me-1 font-13"></i>Quay lại</a>
                             <button type="submit" class="btn btn-primary px-5"><i class="bx bx-save me-1"></i>Cập nhật</button>
