@@ -1,5 +1,15 @@
 <?php
 
+use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\BandosoController;
+use App\Http\Controllers\CameraController;
+use App\Http\Controllers\IdentifiedsController;
+use App\Http\Controllers\NvrController;
+use App\Http\Controllers\Profiletroller;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ThanhvienController;
+use App\Http\Controllers\VideoController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 /*
@@ -13,101 +23,55 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Route::get('/login.html', function () {
-    return view('login');
-})->name('login');
+Auth::routes(['register' => false,],['throttle' => 5]);
 
-Route::get('/', function () {
-   return view('page.index');
-})->name('index');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/ban-do-so.html', function () {
-    return view('page.ban_do_so');
-})->name('bandoso');
+Route::group(['middleware' => ['auth', 'check_user_status']], function() {
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('permissions', PermissionController::class);
 
-Route::prefix('he-thong-camera-ai')->name('hethongcam.')->group(function () {
-    Route::get('/tat-ca-su-kien.html', function () {
-        return view('page.tat_ca_su_kien');
-    })->name('all');
+    Route::get('/', function () {
+        return view('page.index');
+    })->name('index');
+    Route::get('ban-do-so', [BandosoController::class, 'index'])->name('bandoso'); 
+         
+     Route::prefix('xem-truc-tiep')->name('xemtructiep.')->group(function () {
+        
+        Route::get('/', [BandosoController::class, 'xem_truc_tiep'])->name('all'); 
+     
+        Route::get('/{id}', [BandosoController::class, 'xem_chi_tiet'])->where('id', '[0-9]+')->name('chitiet'); 
+     
+    });
 
-    Route::get('/nha-dien-khuong-mat.html', function () {
-        return view('page.nhan_dien_khuon_mat');
-    })->name('nhandienkhuongmat');
+    Route::prefix('identified')->name('identified.')->group(function(){
+        Route::get('/all', [IdentifiedsController::class, 'all'])->name('all');
+        Route::get('/all/{id}', [IdentifiedsController::class, 'all_cate'])->where('id', '[0-9]+')->name('all_cate');
+    });
 
-    Route::get('/nhan-dien-bien-so.html', function () {
-        return view('page.nhan_dien_bien_so');
-    })->name('nhandienbienso');
+    Route::resource('identified', IdentifiedsController::class);
 
-    Route::get('/nhan-dien-dam-dong.html', function () {
-        return view('page.nhan_dien_dam_dong');
-    })->name('nhandiendamdong');
+    Route::resource('video', VideoController::class);
 
-    Route::get('/danh-sach-nhan-dan.html', function () {
-        return view('page.danh_sach_nhan_dang');
-    })->name('danhsachnhandang');
-    
-    Route::get('/danh-sach-nhan-dan/add.html', function () {
-        return view('page.them_doi_tuong_nhan_dang');
-    })->name('themdoituongnhandang');
+    Route::resource('nvr', NvrController::class);
 
-    Route::get('/lich-su-nhan-dien-bien-so.html', function () {
-        return view('page.lich_su_nhan_dien_bien_so');
-    })->name('lichsunhandienbienso');
+    Route::resource('camera', CameraController::class);
 
-    Route::get('/lich-su-nhan-dien-khuon-mat.html', function () {
-        return view('page.lich_su_nhan_dien_khuon_mat');
-    })->name('lichsunhandienkhuonmat');
+    Route::prefix('profile')->name('profile.')->group(function(){
+        Route::get('/', [Profiletroller::class, 'index'])->name('index');
+        Route::post('/', [Profiletroller::class, 'UpdateData'])->name('update');
+    });
 
-    Route::get('/phan-tich-video.html', function () {
-        return view('page.phan_tich_video');
-    })->name('phantichvideo');
-    
-    Route::get('/ket-qua-phan-tich-video.html', function () {
-        return view('page.ket_qua_phan_tich_video');
-    })->name('ketquaphantichvideo');
+    Route::resource('thanh-vien', ThanhvienController::class);
 
-    Route::get('/phan-tich-video/add.html', function () {
-        return view('page.them_video_phan_tich');
-    })->name('themvideophantich');
+    Route::post('ajax', [AjaxController::class, 'index'])->name('ajax');
 });
 
-Route::prefix('he-thong-cctv')->name('hethongcctv.')->group(function () {
-    Route::get('/danh-sach-nvr.html', function () {
-        return view('page.danh_sach_nvr');
-    })->name('danhsachnvr');
 
-    Route::get('/danh-sach-nvr/add.html', function () {
-        return view('page.them_danh_sach_nvr');
-    })->name('themmoinvr');
 
-    Route::get('/danh-sach-camera.html', function () {
-        return view('page.camera');
-    })->name('danhsachcamera');
-    
-    Route::get('/danh-sach-camera/add.html', function () {
-        return view('page.them_danh_sach_camera');
-    })->name('themmoicamera');
 
-    Route::get('/xem-truc-tiep.html', function () {
-        return view('page.xemn_truc_tiep');
-    })->name('xemtructiep');
 
-    Route::get('/{id}/xem-truc-tiep.html', function () {
-        return view('page.xemn_truc_tiep_chi_tiet');
-    })->name('xemtructiepchitiet');
 
-});
 
-Route::prefix('thanh-vien')->name('thanhvien.')->group(function () {
-    Route::get('/danh-sach-thanh-vien.html', function () {
-        return view('page.danh_sach_thanh_vien');
-    })->name('danhsachthanhvien');
 
-    Route::get('/danh-sach-nvr/add.html', function () {
-        return view('page.them_thanh_vien');
-    })->name('themmoithanhvien');
-});
-
-Route::get('profile.html', function () {
-    return view('page.profile');
-})->name('profile');

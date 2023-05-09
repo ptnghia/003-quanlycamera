@@ -27,49 +27,16 @@
     <div class="card radius-10">
         <div class="card-body">
             <div class="row g-3 mb-3">
-                <div class="col-lg-4 col-sm-6">
-                    <video width="100%" height="300" id="videoPlayer" class=" radius-10" controls></video>
+                @foreach ($list_cameras as $item)
+                <div class="col-lg-4 col-sm-6 position-relative">
+                    <video width="100%" id="videoPlayer{{$item->id}}" class=" radius-10" controls></video>
+                    <div class=" d-flex justify-content-between position-absolute top-0 left-0" style="left: 8px;right: 8px;background-color: #ffffffb0;padding: 7px;color: #070707;border-radius: 8px 8px 0 0;font-weight: 500;">
+                        <div>
+                            <i class="bx bx-cctv"></i> {{$item->name_area}} ({{$item->name}})
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-4 col-sm-6">
-                    
-                    <video width="100%" height="300" controls class=" radius-10">
-                        <source src="movie.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <video width="100%" height="300" controls class=" radius-10">
-                        <source src="movie.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <video width="100%" height="300" controls class=" radius-10">
-                        <source src="movie.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <video width="100%" height="300" controls class=" radius-10">
-                        <source src="movie.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <video width="100%" height="300" controls class=" radius-10">
-                        <source src="movie.mp4" type="video/mp4">
-                    </video>
-                </div>
-            </div>
-            <div class=" d-flex flex-row-reverse">
-                <ul class="pagination pagination-sm">
-                    <li class="page-item disabled"><a class="page-link" href="javascript:;" tabindex="-1" aria-disabled="true">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="javascript:;">1</a>
-                    </li>
-                    <li class="page-item active" aria-current="page"><a class="page-link" href="javascript:;">2 <span class="visually-hidden">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="javascript:;">3</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="javascript:;">Next</a>
-                    </li>
-                </ul>
+                @endforeach
             </div>
         </div>
     </div>
@@ -80,13 +47,15 @@
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
-    var videoPlayer = document.getElementById('videoPlayer');
+    @foreach ($list_cameras as $item)
+    var videoPlayer{{$item->id}} = document.getElementById('videoPlayer{{$item->id}}');
     var hls = new Hls();
-    hls.loadSource('http://42.115.114.5:8083/stream/27aec28e-6181-4753-9acd-0456a75f0289/channel/0/hls/live/index.m3u8');
-    hls.attachMedia(videoPlayer);
+    hls.loadSource('{{$item->link}}');
+    hls.attachMedia(videoPlayer{{$item->id}});
     hls.on(Hls.Events.MANIFEST_PARSED, function() {
-      videoPlayer.play();
+      //videoPlayer{{$item->id}}.play();
     });
+    @endforeach
 </script>
 
 @endsection

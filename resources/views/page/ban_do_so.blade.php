@@ -156,36 +156,21 @@
                             <input type="checkbox" checked="checked" id="smCB-1" />
                             <label class="tree_label" for="smCB-1"><b>TẤT CẢ</b></label>
                             <ul>
+                                @foreach ($datas as $key => $item)
                                 <li>
                                     <input type="checkbox" checked="checked" id="smCB-2" />
-                                    <label class="tree_label" for="smCB-2"><b>Huyện Tuy Phong</b></label>
+                                    <label class="tree_label" for="smCB-2"><b>{{$item['name']}}</b></label>
                                     <ul>
+                                        @if (isset($item['nvr']))
+                                        @foreach ( $item['nvr'] as $camera)
                                         <li>
-                                            <span class="tree_label" ><i class="bx bx-cctv"></i> Cây xăng Lê Sinh (201-Đ)</span>
+                                            <a href="{{route('xemtructiep.chitiet', $camera->id)}}" class="tree_label" ><i class="bx bx-cctv"></i> {{$camera->name_area}} ({{$camera->name}})</a>
                                         </li>
-                                        <li>
-                                            <span class="tree_label"><i class="bx bx-cctv"></i> Petrolimex - Cửa hàng 112 (202-GT)</span>
-                                        </li>
-                                        <li>
-                                            <span class="tree_label" ><i class="bx bx-cctv"></i> Trường mẫu giáo hòa minh (203-GT)</span>
-                                        </li>
+                                        @endforeach
+                                        @endif
                                     </ul>
-                                </li>
-                                <li>
-                                    <input type="checkbox" checked="checked" id="smCB-3" />
-                                    <label class="tree_label" for="smCB-3"><b>Huyện Tuy Phong</b></label>
-                                    <ul>
-                                        <li>
-                                            <span class="tree_label" ><i class="bx bx-cctv"></i> Cây xăng Lê Sinh (201-Đ)</span>
-                                        </li>
-                                        <li>
-                                            <span class="tree_label"><i class="bx bx-cctv"></i> Petrolimex - Cửa hàng 112 (202-GT)</span>
-                                        </li>
-                                        <li>
-                                            <span class="tree_label" ><i class="bx bx-cctv"></i> Trường mẫu giáo hòa minh (203-GT)</span>
-                                        </li>
-                                    </ul>
-                                </li>
+                                </li> 
+                                @endforeach
                             </ul>
                         </li>
                     </ul>
@@ -219,13 +204,13 @@ function initMap() {
         anchor: new google.maps.Point(25, 50) // Position of the point on the image file that corresponds to the marker's position
     };
     var locations = [
-        {lat: 11.185786, lng: 108.565337, title: 'Cây xăng Lê Sinh', icon: customIcon},
-        {lat: 11.191461, lng: 108.577068, title: 'Petrolimex - Cửa hàng 112', icon: customIcon},
-        {lat: 11.192939, lng: 108.589882, title: 'Trường mẫu giáo hòa minh', icon: customIcon},
+        @foreach ($list_cameras as $row)
+        {lat: {{explode('_',$row->speed)[0]}}, lng: {{explode('_',$row->speed)[1]}}, title: '{{$row->name_area }} ({{$camera->name}})', icon: customIcon},
+        @endforeach
     ];
 	var map = new google.maps.Map(document.getElementById('marker-map'), {
 		zoom: 14,
-		center: {lat: 11.1904154, lng: 108.5684944}
+		center: {lat: {{explode('_',$row->speed)[0]}}, lng: {{explode('_',$row->speed)[1]}}}
 	});
     for (var i = 0; i < locations.length; i++) {
         var location = locations[i];

@@ -52,6 +52,7 @@
 					</a>
 				</li>
                 <li class="menu-label">QUẢN TRỊ HỆ THỐNG</li>
+				@if(auth()->user()->hasRole('Super-Admin') or Auth::user()->can('bando-menu'))
                 <li>
 					<a href="{{route('bandoso')}}">
 						<div class="parent-icon"><i class='bx bx-map-alt'></i>
@@ -59,6 +60,8 @@
 						<div class="menu-title">Bản đồ số</div>
 					</a>
 				</li>
+				@endif
+				@if(auth()->user()->hasRole('Super-Admin') or Auth::user()->can('identified-show') or Auth::user()->can('identified-menu') or Auth::user()->can('video-menu'))
 				<li>
 					<a href="javascript:;" class="has-arrow">
 						<div class="parent-icon"><i class="bx bx-camera-movie"></i>
@@ -66,22 +69,29 @@
 						<div class="menu-title">Hệ thống Camera AI</div>
 					</a>
 					<ul>
+						@if(auth()->user()->hasRole('Super-Admin') or Auth::user()->can('identified-show'))
 						<li> <a class="has-arrow" href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Danh sách sự kiện</a>
 							<ul>
-								<li> <a href="{{route('hethongcam.all')}}"><i class="bx bx-right-arrow-alt"></i>Tất cả sự kiện</a></li>
-                                <li> <a href="{{route('hethongcam.nhandienkhuongmat')}}"><i class="bx bx-right-arrow-alt"></i>Nhận diện khuôn mặt</a></li>
-                                <li> <a href="{{route('hethongcam.nhandienbienso')}}"><i class="bx bx-right-arrow-alt"></i>Nhận diện biển số xe</a></li>
-                                <li> <a href="{{route('hethongcam.nhandiendamdong')}}"><i class="bx bx-right-arrow-alt"></i>Nhận diện đám đông</a></li>
+								<li> <a href="{{route('identified.all')}}"><i class="bx bx-right-arrow-alt"></i>Tất cả sự kiện</a></li>
+								@foreach ($nhandien as $item)
+								<li> <a href="{{route('identified.all_cate',$item->id)}}"><i class="bx bx-right-arrow-alt"></i>{{$item->name}}</a></li>
+								@endforeach
 							</ul>
 						</li>
-                        <li> <a href="{{route('hethongcam.danhsachnhandang')}}"><i class="bx bx-right-arrow-alt"></i>Danh sách nhận dạng</a></li>
+						@endif
+						@if(auth()->user()->hasRole('Super-Admin') or Auth::user()->can('identified-menu'))
+                        <li> <a href="{{route('identified.index')}}"><i class="bx bx-right-arrow-alt"></i>Danh sách nhận dạng</a></li>
+						@endif
+						@if(auth()->user()->hasRole('Super-Admin') or Auth::user()->can('video-menu'))
                         <li> <a class="has-arrow" href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Phân tích video</a>
 							<ul>
-								<li> <a  href="{{route('hethongcam.phantichvideo')}}"><i class="bx bx-right-arrow-alt"></i>Danh sách video</a></li>
+								<li> <a  href="{{route('video.index')}}"><i class="bx bx-right-arrow-alt"></i>Danh sách video</a></li>
 							</ul>
 						</li>
+						@endif
 					</ul>
 				</li>
+				@endif
                 <li>
 					<a href="javascript:;" class="has-arrow">
 						<div class="parent-icon"><i class='bx bx-cctv'></i>
@@ -89,12 +99,18 @@
 						<div class="menu-title">Hệ thống CCTV</div>
 					</a>
 					<ul>
-						<li> <a href="{{route('hethongcctv.danhsachnvr')}}"><i class="bx bx-right-arrow-alt"></i>Danh sách NVR</a>
+						@if(auth()->user()->hasRole('Super-Admin') or Auth::user()->can('nvr-menu'))
+						<li> <a href="{{route('nvr.index')}}"><i class="bx bx-right-arrow-alt"></i>Danh sách NVR</a>
 						</li>
-						<li> <a href="{{route('hethongcctv.danhsachcamera')}}"><i class="bx bx-right-arrow-alt"></i>Danh sách Camera</a>
+						@endif
+						@if(auth()->user()->hasRole('Super-Admin') or Auth::user()->can('camera-menu'))
+						<li> <a href="{{route('camera.index')}}"><i class="bx bx-right-arrow-alt"></i>Danh sách Camera</a>
 						</li>
-						<li> <a href="{{route('hethongcctv.xemtructiep')}}"><i class="bx bx-right-arrow-alt"></i>Xemn trực tiếp</a>
+						@endif
+						@if(auth()->user()->hasRole('Super-Admin') or Auth::user()->can('xemtructiep-menu'))
+						<li> <a href="{{route('xemtructiep.all')}}"><i class="bx bx-right-arrow-alt"></i>Xemn trực tiếp</a>
 						</li>
+						@endif
 					</ul>
 				</li>
 				<li class="menu-label">QUẢN TRỊ CHUNG</li>
@@ -107,9 +123,11 @@
 					<ul>
 						<li> <a href="thong-ke-nguoi-dung.html"><i class="bx bx-right-arrow-alt"></i>Thống kê người dùng</a>
 						</li>
-						<li> <a href="{{route('thanhvien.danhsachthanhvien')}}"><i class="bx bx-right-arrow-alt"></i>Danh sách người dùng</a>
+						@if(auth()->user()->hasRole('Super-Admin') or Auth::user()->can('user-menu'))
+						<li> <a href="{{route('thanh-vien.index')}}"><i class="bx bx-right-arrow-alt"></i>Danh sách người dùng</a>
 						</li>
-						<li> <a href="{{route('profile')}}"><i class="bx bx-right-arrow-alt"></i>Quản lý tài khoản</a>
+						@endif
+						<li> <a href="{{route('profile.index')}}"><i class="bx bx-right-arrow-alt"></i>Quản lý tài khoản</a>
 						</li>
 					</ul>
 				</li>
@@ -184,19 +202,26 @@
 					</div>
 					<div class="user-box dropdown">
 						<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							<img src="{{asset('assets/images/avatars/avatar-2.png')}}" class="user-img" alt="user avatar">
+							<img src="{{asset(Auth::user()->avata!=''? Auth::user()->avata : 'uploads/images/user.png')}}" class="user-img" alt="user avatar">
 							<div class="user-info ps-3">
-								<p class="user-name mb-0">Pauline Seitz</p>
-								<p class="designattion mb-0">Web Designer</p>
+								<p class="user-name mb-0">{{Auth::user()->name}}</p>
+								<p class="designattion mb-0">Quản trị hệ thống</p>
 							</div>
 						</a>
 						<ul class="dropdown-menu dropdown-menu-end">
-							<li><a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Thông tin thành viên</span></a>
+							<li><a class="dropdown-item" href="{{route('profile.index')}}"><i class="bx bx-user"></i><span>Thông tin thành viên</span></a>
 							</li>
 							<li>
 								<div class="dropdown-divider mb-0"></div>
 							</li>
-							<li><a class="dropdown-item" href="javascript:;"><i class='bx bx-log-out-circle'></i><span>Đăng xuất</span></a>
+							<li>
+								<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+									<i class='bx bx-log-out-circle'></i><span>Đăng xuất</span>
+								</a>
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+									@csrf
+								</form>
+							</a>
 							</li>
 						</ul>
 					</div>
@@ -228,9 +253,38 @@
 	<script src="{{asset('assets/plugins/simplebar/js/simplebar.min.js')}}"></script>
 	<script src="{{asset('assets/plugins/metismenu/js/metisMenu.min.js')}}"></script>
 	<script src="{{asset('assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js')}}"></script>
+	<script src="{{asset('assets/js/sweetalert.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('assets/js/notify.min.js')}}"></script>
     @yield('js')
 	<!--app JS-->
 	<script src="{{asset('assets/js/app.js')}}"></script>
+	<script>
+		$('.confirm_delete').click(function () { 
+			var id = $(this).attr('data_id');
+			swal({
+				title: "Xác nhận xóa dữ liệu?",
+				text: "",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+			})
+			.then((willDelete) => {
+				if (willDelete) {
+					$('#del_form_'+id).submit();
+				} else {
+				}
+			});
+		});
+		@if(Session::has('alert-type'))
+		swal({
+			title: "{{ Session::get('message', 'info') }}",
+			icon: "{{ Session::get('alert-type', 'info') }}",
+			button: false,
+            timer: 2000
+		});
+		@endif
+	</script>
+	
 </body>
 
 </html>
