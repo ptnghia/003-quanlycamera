@@ -206,7 +206,7 @@ function initMap() {
     var locations = [
         @foreach ($list_cameras as $row)
         @if($row->speed!='')
-        {lat: {{explode('_',$row->speed)[0]}}, lng: {{explode('_',$row->speed)[1]}}, title: '{{$row->name_area }} ({{$camera->name}})', icon: customIcon},
+        {lat: {{explode('_',$row->speed)[0]}}, lng: {{explode('_',$row->speed)[1]}}, title: '{{$row->name_area }} ({{$camera->name}})', icon: customIcon, url : '{{route('xemtructiep.chitiet', $camera->id)}}'},
         @endif
         @endforeach
     ];
@@ -225,7 +225,9 @@ function initMap() {
             position: location,
             title: location.title,
             map: map,
-            icon: location.icon // Set the icon property to the custom icon object
+            icon: location.icon,
+            url: location.url
+            // Set the icon property to the custom icon object
         });
     }
 	
