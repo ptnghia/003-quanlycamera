@@ -205,12 +205,19 @@ function initMap() {
     };
     var locations = [
         @foreach ($list_cameras as $row)
+        @if($row->speed!='')
         {lat: {{explode('_',$row->speed)[0]}}, lng: {{explode('_',$row->speed)[1]}}, title: '{{$row->name_area }} ({{$camera->name}})', icon: customIcon},
+        @endif
         @endforeach
     ];
 	var map = new google.maps.Map(document.getElementById('marker-map'), {
 		zoom: 14,
-		center: {lat: {{explode('_',$row->speed)[0]}}, lng: {{explode('_',$row->speed)[1]}}}
+    @if (isset($row->speed))
+      center: {lat: {{explode('_',$row->speed)[0]}}, lng: {{explode('_',$row->speed)[1]}}}
+    @else
+      center: {lat: 10.9414312, lng: 108.1040953}
+    @endif
+		
 	});
     for (var i = 0; i < locations.length; i++) {
         var location = locations[i];
