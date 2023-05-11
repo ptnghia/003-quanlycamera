@@ -191,6 +191,14 @@
 @section('js')
 <!-- google maps api -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKXKdHQdtqgPVl2HI2RnUa_1bjCxRCQo4&callback=initMap" async defer></script>
+<script src="http://42.115.114.5:3001/socket.io/socket.io.js"></script>
+<script>
+    const socket = io('http://42.115.114.5:3001/');
+    socket.on("server-send-plates-ocr", (data) => {
+        const obj = JSON.parse(data);
+        console.log(obj);
+    });
+</script>
 <script>
 // google map scripts
 var map;
@@ -230,6 +238,9 @@ function initMap() {
             // Set the icon property to the custom icon object
         });
     }
+    marker.addListener('click', function() {
+      window.open(marker.url);
+    });
 	
 }
 // routes map
