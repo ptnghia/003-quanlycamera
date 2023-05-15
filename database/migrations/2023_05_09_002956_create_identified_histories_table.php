@@ -20,6 +20,7 @@ return new class extends Migration
             $table->dateTime('time_get');
             $table->foreignId('camera_id')->constrained('cameras');
             $table->string('screen_image')->nullable();
+            $table->string('crop_url')->nullable();
             $table->timestamps();
         });
     }

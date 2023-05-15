@@ -243,21 +243,21 @@
         .then((willDelete) => {
             if (willDelete) {
                 $.ajax({
-                url : "{{route('ajax')}}",
-                type : "post",
-                dataType:"text",
-                 data : {
-                    _token  :   '{{csrf_token()}}',
-                    atc     :   'del_area',
-                    id      :   data_id
-                },
-                success : function (result){
-                    $('#item_thongso_vb_'+data_id).remove();
-                    swal("Xóa thành công", {
-                        icon: "success",
-                    });
-                }
-            });
+                    url : "{{route('ajax')}}",
+                    type : "post",
+                    dataType:"text",
+                    data : {
+                        _token  :   '{{csrf_token()}}',
+                        atc     :   'del_area',
+                        id      :   data_id
+                    },
+                    success : function (result){
+                        $('#item_thongso_vb_'+data_id).remove();
+                        swal("Xóa thành công", {
+                            icon: "success",
+                        });
+                    }
+                });
             } else {
                 //swal("Your imaginary file is safe!");
             }

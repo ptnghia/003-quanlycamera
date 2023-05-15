@@ -20,8 +20,8 @@ class Cameras extends Model
         ->select('cameras.*', 'nvrs.name as nvr_name')
         ->get();
         return $datas;
- 
     }
+
     public function getAll_area($nvr_id){
 
         $datas =  DB::table($this->table)
@@ -30,6 +30,17 @@ class Cameras extends Model
         return $datas;
  
     }
+
+    public function get_cam_name($name){
+
+        $data =  DB::table($this->table)
+        ->where('name','=', $name)
+        ->select('name','name_area','id')
+        ->first();
+        return $data;
+ 
+    }
+
     public function getId($id){
  
          $data = DB::table($this->table)->find($id);

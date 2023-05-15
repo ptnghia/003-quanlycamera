@@ -35,6 +35,18 @@
 @endsection
 
 @section('js')
+
+<script src="http://42.115.114.5:3001/socket.io/socket.io.js"></script>
+<script>
+    const socket = io('http://42.115.114.5:3001/');
+    socket.on("server-send-plates-ocr", (data) => {
+        const obj = JSON.parse(data);
+        console.log(obj);
+    });
+
+    
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
     var videoPlayer = document.getElementById('videoPlayer');

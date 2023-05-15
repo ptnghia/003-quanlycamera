@@ -66,6 +66,8 @@ Route::group(['middleware' => ['auth', 'check_user_status']], function() {
     Route::resource('thanh-vien', ThanhvienController::class);
 
     Route::post('ajax', [AjaxController::class, 'index'])->name('ajax');
+
+    Route::get('ajax_nhandien', [AjaxController::class, 'get_track_his'])->name('ajaxtrack');
 });
 
 
