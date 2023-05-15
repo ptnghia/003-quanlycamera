@@ -22,14 +22,25 @@ class Identifieds extends Model
         return $datas;
  
     }
- 
+    
     public function getId($id){
  
          $data = DB::table($this->table)->find($id);
          return $data;
 
     }
+
+    public function get_iden_name($name, $type){
+
+        $data =  DB::table($this->table)
+        ->where('name','=', $name)
+        ->where('identified_cate_id','=', $type)
+        ->select('name')
+        ->first();
+        return $data;
  
+    }
+
     public function insert($data){
  
         $id = DB::table($this->table)->insertGetId($data);

@@ -73,42 +73,12 @@
                             <th>Thời gian</th>
                             <th>Camera</th>
                             <th>Khu vực</th>
-                            <th>Phân loại</th>
+                            <th class="text-center">Phân loại</th>
                             <th style="width: 125px;">Chi tiết</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($datas as $item)
-                        <tr>
-                            <td class=" text-center">
-                                <img src="{{$item->screen_image}}" style="object-fit: cover" alt="" width="90px" height="70px" />
-                            </td>
-                            <td>
-                                {{$item->name}}
-                            </td>
-                            <td>
-                                {{$item->note}}
-                            </td>
-                            <td>
-                                {{$item->time_get}}
-                            </td>
-                            <td>
-                                <i class=" bx bx-cctv me-1"></i> {{$item->name_camera}}
-                            </td>
-                            <td>
-                                {{$item->khuvuc}}
-                            </td>
-                            <td>
-                                {{$item->type}}
-                            </td>
-                            <td class="text-center">
-                                <button type="button" class="btn btn-sm btn-info" onclick="show_nhandien_ct({{$item->id}})" data-bs-toggle="modal" data-bs-target="#Modal_bienso">
-                                    <svg style="width: 15px;" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-white"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                    Chi tiết
-                                </button>
-                            </td>
-                        </tr>
-                        @endforeach
+                        
                     </tbody>
                 </table>
             </div>
@@ -181,9 +151,23 @@
 <script src="{{asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js')}}"></script>
 <script>
     $(document).ready(function() {
+
         var table = $('#datatable').DataTable({
+            ajax: {
+                url: '{{route('ajaxtrack')}}',
+                dataSrc: ''
+            },
+            "columns": [
+                { "data"    :   "hinh_anh" },
+                { "data"    :   "doituong" },
+                { "data"    :   "su_kien" },
+                { "data"    :   "thoi_gian" },
+                { "data"    :   "camera"},
+                { "data"    :   "khuvuc"},
+                { "data"    :   "canhbao"},
+                { "data"    :   "action"}
+            ],
             "lengthChange": false,
-            //"bFilter": false,
         });
 
         $('#custom-search-input').keyup(function() {
@@ -222,5 +206,33 @@
         });
     }
 </script>
+<script src="http://42.115.114.5:3001/socket.io/socket.io.js"></script>
+<script>
+    const socket = io('http://42.115.114.5:3001/');
+    socket.on("server-send-plates-ocr", (data) => {
+        const obj = JSON.parse(data);
+        console.log(obj);
+        //alert(obj);
+    });
 
+    
+    @if(auth()->user()->hasRole('Super-Admin'))
+    function add_track_his_bienso(json){
+        $.ajax({
+            url : "{{route('ajax')}}",
+            type : "post",
+            dataType:"text",
+            data : {
+                _token  :   '{{csrf_token()}}',
+                atc     :   'add_track_his_bienso',
+                json      :   json
+            },
+            success : function (result){
+                alert(result);
+                $('#datatable').DataTable().ajax.reload();
+            }
+        });
+    }
+    @endif
+</script>
 @endsection

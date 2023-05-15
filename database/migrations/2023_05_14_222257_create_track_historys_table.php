@@ -13,14 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('identified_histories', function (Blueprint $table) {
+        Schema::create('track_historys', function (Blueprint $table) {
             $table->id();
+            $table->text('name');
             $table->text('note');
-            $table->foreignId('identified_id')->constrained('identifieds');
             $table->dateTime('time_get');
-            $table->foreignId('camera_id')->constrained('cameras');
-            $table->string('screen_image')->nullable();
-            $table->string('crop_url')->nullable();
+            $table->integer('camera_id')->default(0);
+            $table->string('cam_name');
+            $table->string('khuvuc');
+            $table->text('crop_url')->nullable();
+            $table->text('general_url')->nullable();
+            $table->text('loss_url')->nullable();
+            $table->integer('alert_type')->default(0);
+            $table->integer('type')->default(0);
             $table->timestamps();
         });
     }
@@ -32,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('identified_histories');
+        Schema::dropIfExists('track_historys');
     }
 };

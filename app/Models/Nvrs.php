@@ -29,8 +29,8 @@ class Nvrs extends Model
         ->where('area_id','=', $area_id)
         ->get();
         return $datas;
- 
     }
+
     public function getId($id){
  
          $data = DB::table($this->table)->find($id);

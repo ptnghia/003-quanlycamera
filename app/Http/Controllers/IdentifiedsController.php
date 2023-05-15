@@ -9,6 +9,7 @@ use App\Models\Identified_histories;
 use App\Models\Identified_images;
 use App\Models\Identified_types;
 use App\Models\Identifieds;
+use App\Models\Track_historys;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -226,7 +227,7 @@ class IdentifiedsController extends Controller
 
     public function all(){
 
-        $db_type = new Identified_types();
+        $db_type = new Track_historys();
         $types = $db_type->getAll();
 
         $db_his = new Identified_histories();
@@ -244,4 +245,6 @@ class IdentifiedsController extends Controller
 
         return view('identified.all', compact('datas','types'));
     }
+
+    
 }
