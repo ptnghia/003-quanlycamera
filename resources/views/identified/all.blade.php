@@ -200,39 +200,22 @@
                 $("#doi_tuong").html(jsonArray.doi_tuong);
                 $("#thoi_gian").html(jsonArray.thoi_gian);
                 $("#camera").html(jsonArray.camera);
-                $("#vi_tri").html(jsonArray.thoi_gian);
+                $("#vi_tri").html(jsonArray.vi_tri);
                 $("#big_img").attr('src',jsonArray.big_img);
             }
         });
     }
 </script>
-<script src="http://42.115.114.5:3001/socket.io/socket.io.js"></script>
+
 <script>
     const socket = io('http://42.115.114.5:3001/');
     socket.on("server-send-plates-ocr", (data) => {
         const obj = JSON.parse(data);
         console.log(obj);
+        $('#datatable').DataTable().ajax.reload();
+        //const jsonString = JSON.stringify(obj);
+        //add_track_his_bienso(jsonString)
         //alert(obj);
     });
-
-    
-    @if(auth()->user()->hasRole('Super-Admin'))
-    function add_track_his_bienso(json){
-        $.ajax({
-            url : "{{route('ajax')}}",
-            type : "post",
-            dataType:"text",
-            data : {
-                _token  :   '{{csrf_token()}}',
-                atc     :   'add_track_his_bienso',
-                json      :   json
-            },
-            success : function (result){
-                alert(result);
-                $('#datatable').DataTable().ajax.reload();
-            }
-        });
-    }
-    @endif
 </script>
 @endsection

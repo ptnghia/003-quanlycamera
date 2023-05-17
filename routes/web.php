@@ -8,6 +8,7 @@ use App\Http\Controllers\NvrController;
 use App\Http\Controllers\Profiletroller;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ThanhvienController;
+use App\Http\Controllers\TrackController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -68,6 +69,10 @@ Route::group(['middleware' => ['auth', 'check_user_status']], function() {
     Route::post('ajax', [AjaxController::class, 'index'])->name('ajax');
 
     Route::get('ajax_nhandien', [AjaxController::class, 'get_track_his'])->name('ajaxtrack');
+
+    Route::get('ajax_nhandien2', [AjaxController::class, 'get_track_his_2'])->name('ajaxtrack2');
+
+    Route::get('track', [TrackController::class, 'index'])->name('track');
 });
 
 

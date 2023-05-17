@@ -339,10 +339,29 @@ class AjaxController extends Controller
             $data_new[$key]['camera']       =   $item->cam_name;
             $data_new[$key]['khuvuc']       =   $item->khuvuc;
             $data_new[$key]['canhbao']      =   '<div class="text-center">'.$alert.'</div>';
-            $data_new[$key]['action']       =   '<button type="button" class="btn btn-sm btn-info" onclick="show_nhandien_ct'.$item->id.')" data-bs-toggle="modal" data-bs-target="#Modal_bienso">
+            $data_new[$key]['action']       =   '<button type="button" class="btn btn-sm btn-info" onclick="show_nhandien_ct('.$item->id.')" data-bs-toggle="modal" data-bs-target="#Modal_bienso">
                                                     <svg style="width: 15px;" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-white"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                                     Chi tiết
                                                 </button>';
+        }
+
+        return response()->json($data_new);
+    }
+
+    public function get_track_his_2(){
+        $db_track = new Track_historys();
+        $datas = $db_track->getAll();
+
+        $data_new = [];
+        foreach($datas as $key => $item){
+            $data_new[$key]['hinh_anh']     =   '<div class="text-center"> <img src="'.$item->crop_url.'" style="object-fit: cover;width: 50px;" alt="" height="50px" /></div>';
+            $data_new[$key]['doituong']     =   $item->name;
+            $data_new[$key]['thoi_gian']    =   $item->time_get;
+            $data_new[$key]['camera']       =   $item->cam_name;
+            $data_new[$key]['khuvuc']       =   $item->khuvuc;
+            $data_new[$key]['action']       =   '<div class="text-center"><button type="button" class="btn btn-sm btn-info" onclick="show_nhandien_ct('.$item->id.')" data-bs-toggle="modal" data-bs-target="#Modal_bienso">
+                                                    <svg style="width: 15px;" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-white"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                                </button></div>';
         }
 
         return response()->json($data_new);

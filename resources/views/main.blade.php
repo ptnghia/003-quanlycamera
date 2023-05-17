@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	<link href="{{asset('assets/css/app.css')}}" rel="stylesheet">
 	<link href="{{asset('assets/css/icons.css')}}" rel="stylesheet">
-	
+	<script src="http://42.115.114.5:3001/socket.io/socket.io.js"></script>
 	<title>Ứng dụng camera</title>
 </head>
 
@@ -113,6 +113,15 @@
 						@endif
 					</ul>
 				</li>
+				@if(Auth::user()->can('datacam-view') and !auth()->user()->hasRole('Super-Admin'))
+                <li>
+					<a href="{{route('track')}}">
+						<div class="parent-icon"><i class='bx bx-cctv'></i>
+						</div>
+						<div class="menu-title">Giám sát camera</div>
+					</a>
+				</li>
+				@endif
 				<li class="menu-label">QUẢN TRỊ CHUNG</li>
                 <li>
 					<a class="has-arrow" href="javascript:;">
