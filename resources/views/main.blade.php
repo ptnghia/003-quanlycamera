@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	<link href="{{asset('assets/css/app.css')}}" rel="stylesheet">
 	<link href="{{asset('assets/css/icons.css')}}" rel="stylesheet">
-	<script src="http://42.115.114.5:3001/socket.io/socket.io.js"></script>
+	<script src="https://camera-api.nguyenluanbinhthuan.com:3001/socket.io/socket.io.js"></script>
 	<title>Ứng dụng camera</title>
 </head>
 
